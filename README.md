@@ -6,6 +6,11 @@ We have managed to get error rates like 35% on the test data, which is state-of-
 
 ## Usage
 
+### Getting the Data
+
+Get the [tar.gz file from the official site](http://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz)
+ and unzip it to the root directory.
+ 
 ### Training
 
 ```sh
