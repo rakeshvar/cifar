@@ -1,0 +1,80 @@
+{
+"layers" : [
+#       ('ElasticLayer', {
+#           'translation'   :2,
+#           'zoom'          :1.1,
+#           'magnitude'     :60,
+#           'sigma'         :15,
+#           'pflip'         :0.03,
+#          'angle'         :5,
+#          'nearest'       :True,
+#          'invert_image'  :False,
+#          }),
+        ('InputLayer', {
+            'img_sz': 32,
+            'num_maps': 3,
+           }), #32
+        ('ConvLayer', {
+            'num_maps'      :8,
+            'filter_sz'     :3,
+            'stride'        :1,
+            'actvn'         :"relu50",
+            'mode'          :"same",
+            'reg'           : {'maxnorm':1},
+            }), #32
+        ('PoolLayer', {
+            'pool_sz'       :2,
+            }), #16
+        ('ConvLayer', {
+            'num_maps'      :32,
+            'filter_sz'     :3,
+            'stride'        :1,
+            'mode'          :"same",
+            'actvn'         :"relu20",
+            'reg'           : {'maxnorm':1},
+            }), #16
+        ('PoolLayer', {
+            'pool_sz'       :2,
+            }), #8
+        ('ConvLayer', {
+            'num_maps'      :96,
+            'filter_sz'     :3,
+            'stride'        :1,
+            'actvn'         :"relu10",
+            'mode'          :"same",
+            'reg'           : {'maxnorm':1},
+            }), #8
+        ('PoolLayer', {
+            'pool_sz'       :2,
+            }), #4
+        ('ConvLayer', {
+            'num_maps'      :200,
+            'filter_sz'     :3,
+            'stride'        :1,
+            'actvn'         :"relu05",
+            'mode'          :"valid",
+            'reg'           : {'maxnorm':1},
+            }), #2
+        ('PoolLayer', {
+            'pool_sz'       :2,
+            }), #4
+        ('DropOutLayer', {
+            'pdrop'         :.5,
+            }),
+        ('SoftmaxLayer', {
+            'n_out'         :100,
+            'reg'           : {'maxnorm':1},
+            }),
+],
+
+"training_params" : {
+    #'SEED'  : 555555,
+    'BATCH_SZ'   :20,
+    'NUM_EPOCHS' : 2,
+    'EPOCHS_TO_TEST' : 1,
+    'TEST_SAMP_SZ': 1000,
+
+    'INIT_LEARNING_RATE': .1,
+    'EPOCHS_TO_HALF_RATE':  1,
+},
+}
