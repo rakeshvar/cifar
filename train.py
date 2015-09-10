@@ -125,7 +125,7 @@ print(net)
 print(net.get_wts_info(detailed=True).replace("\n\t", ""))
 
 print("\nCompiling ... ")
-training_fn = net.get_trin_model(trin_x, trin_y)
+training_fn = net.get_trin_model(trin_x, trin_y, take_index_list=True)
 test_fn_tr = net.get_test_model(trin_x, trin_y)
 test_fn_te = net.get_test_model(test_x, test_y)
 
@@ -182,14 +182,17 @@ def do_test():
         pickle.dump(net.get_init_params(), pkl_file, -1)
 
 ############################################ Training Loop
+shuffled_indices = np.arange(tr_corpus_sz).astype("int32")
 
 print("Training ...")
 print("Epoch   Cost  Tr_Error Tr_{0}    Te_Error Te_{0}".format(aux_err_name))
 for epoch in range(nEpochs):
     total_cost = 0
+    np.random.shuffle(shuffled_indices)
 
     for ibatch in range(nTrBatches):
-        output = training_fn(ibatch)
+        batch = shuffled_indices[ibatch * batch_sz:(ibatch + 1) * batch_sz]
+        output = training_fn(batch)
         total_cost += output[0]
 
         if np.isnan(total_cost):

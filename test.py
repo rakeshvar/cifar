@@ -83,10 +83,10 @@ for i in range(100):
 
     y, y1 = test_y[i], preds[0]
     true_p, true_label = np.exp(logprobs_or_feats[0][y]), utils.labels[y]
-    info = "test_{:03d}_{}_{:05.2f}".format(i, true_label, true_p*100)
+    info = "test_{:03d}_{}_{:02.0f}".format(i, true_label, true_p*100)
     if y != y1:
         pred_p, pred_label = np.exp(logprobs_or_feats[0][y1]), utils.labels[y1]
-        info += "_as_{}_{:05.2f}".format(pred_label, pred_p*100)
+        info += "_as_{}_{:02.0f}".format(pred_label, pred_p*100)
     print("Image: ", info,)
     saver(layer_outs, info, False)
     im.fromarray(test_col[i]).save(namer(info, 0)) # Overwrites input layer
