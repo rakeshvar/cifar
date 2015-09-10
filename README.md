@@ -22,6 +22,19 @@ if you specify the optional 1 at the end of the command, like `0baby_555555.txt`
 Here `555555` is a random random-seed. (This can be specified in the prms file.)
 You can edit the [theanet](rakeshvar/theanet) params file to your liking.
 
+
+#### Re-training
+
+```sh
+python train.py 0baby_555555_80.pkl 
+```
+
+You could also give an existing `pkl` file as an input in stead of a `prms` 
+file. This will initialize the network with those parameters and pick up the 
+training from there. Although the learning rate could be low. The file 
+`edit_pkl.py` will tell you how to edit the `pkl` files before re-training. 
+
+
 ### Testing
 
 ```sh
