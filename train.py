@@ -207,6 +207,9 @@ for epoch in range(nEpochs):
         if total_cost > 1e9:
             print(net.get_wts_info(detailed=True))
 
+    if epoch % tr_prms['EPOCHS_TO_RESET_GRADIENT'] == 0:
+        net.reset_accumulated_gradients()
+
     net.inc_epoch_set_rate()
 
 ########################################## Final Error Rates

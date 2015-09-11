@@ -76,5 +76,6 @@
 
     'INIT_LEARNING_RATE': .1,
     'EPOCHS_TO_HALF_RATE':  1,
+    'EPOCHS_TO_RESET_GRADIENT': 20,
 },
 }

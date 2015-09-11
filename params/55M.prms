@@ -1,118 +1,106 @@
 {
 "layers" : [
         ('ElasticLayer', {
-            'img_sz'        :36,
+            'img_sz'        :40,
             'num_maps'      :3,
-            'translation'   :2,
-            'zoom'          :1.125,
+            'translation'   :4,
+            'zoom'          :1.16,
             'magnitude'     :0,
             'sigma'         :1,
             'pflip'         :0.0,
-            'angle'         :5,
+            'angle'         :7,
             'nearest'       :False,
             'invert_image'  :False,
-           }), #36
+           }), #40
         ('ColorLayer', {
             'balance':      1.16,
             'gamma':        1.5,
-            }), #36
+            }), #40
         ('ConvLayer', {
-            'num_maps'      :320,
+            'num_maps'      :100,
             'filter_sz'     :2,
             'stride'        :1,
             'actvn'         :"relu50",
             'mode'          :"same",
             'reg'           : {'maxnorm':1},
-            }), #36
+            }), #40
         ('ConvLayer', {
-            'num_maps'      :320,
+            'num_maps'      :100,
             'filter_sz'     :2,
             'stride'        :1,
             'actvn'         :"relu50",
-            'mode'          :"same",
+            'mode'          :"valid",
             'reg'           : {'maxnorm':1},
-            }), #36
+            }), #39
+        ('ConvLayer', {
+            'num_maps'      :100,
+            'filter_sz'     :2,
+            'stride'        :1,
+            'actvn'         :"relu50",
+            'mode'          :"valid",
+            'reg'           : {'maxnorm':1},
+            }), #38
         ('PoolLayer', {
             'pool_sz'       :2,
+            }), #19
+        ('ConvLayer', {
+            'num_maps'      :300,
+            'filter_sz'     :2,
+            'stride'        :1,
+            'mode'          :"same",
+            'actvn'         :"relu20",
+            'reg'           : {'maxnorm':1},
+            }), #19
+        ('DropOutLayer', {
+            'pdrop'         :.05,
+            }),
+        ('ConvLayer', {
+            'num_maps'      :300,
+            'filter_sz'     :2,
+            'stride'        :1,
+            'mode'          :"valid",
+            'actvn'         :"relu20",
+            'reg'           : {'maxnorm':1},
             }), #18
-        ('ConvLayer', {
-            'num_maps'      :640,
-            'filter_sz'     :2,
-            'stride'        :1,
-            'mode'          :"same",
-            'actvn'         :"relu20",
-            'reg'           : {'maxnorm':1},
-            }), 
-        ('DropOutLayer', {
-            'pdrop'         :.05,
-            }),
-        ('ConvLayer', {
-            'num_maps'      :640,
-            'filter_sz'     :2,
-            'stride'        :1,
-            'mode'          :"same",
-            'actvn'         :"relu20",
-            'reg'           : {'maxnorm':1},
-            }), 
-        ('DropOutLayer', {
-            'pdrop'         :.05,
-            }),
         ('PoolLayer', {
             'pool_sz'       :2,
             }), #9
         ('ConvLayer', {
-            'num_maps'      :960,
+            'num_maps'      :600,
             'filter_sz'     :2,
             'stride'        :1,
             'actvn'         :"relu10",
             'mode'          :"same",
             'reg'           : {'maxnorm':1},
-            }), 
+            }), #9
         ('DropOutLayer', {
-            'pdrop'         :.125,
+            'pdrop'         :.111111111,
             }),
         ('ConvLayer', {
-            'num_maps'      :960,
+            'num_maps'      :800,
             'filter_sz'     :2,
             'stride'        :1,
             'actvn'         :"relu10",
             'mode'          :"valid",
             'reg'           : {'maxnorm':1},
             }), #8
-        ('DropOutLayer', {
-            'pdrop'         :.125,
-            }),
         ('PoolLayer', {
             'pool_sz'       :2,
             }), #4
-        ('ConvLayer', {
-            'num_maps'      :1280,
-            'filter_sz'     :2,
-            'stride'        :1,
-            'actvn'         :"relu05",
-            'mode'          :"same",
-            'reg'           : {'maxnorm':1},
-            }), #4
-        ('DropOutLayer', {
-            'pdrop'         :.2,
-            }),
-        ('ConvLayer', {
-            'num_maps'      :1280,
-            'filter_sz'     :2,
-            'stride'        :1,
-            'actvn'         :"relu05",
-            'mode'          :"same",
-            'reg'           : {'maxnorm':1},
-            }), #4
-        ('DropOutLayer', {
-            'pdrop'         :.2,
-            }),
-        ('PoolLayer', {
-            'pool_sz'       :2,
-            }), #2
         ('ConvLayer', {
             'num_maps'      :1600,
-            'filter_sz'     :2,
+            'filter_sz'     :1,
+            'stride'        :1,
+            'actvn'         :"relu05",
+            'mode'          :"valid",
+            'reg'           : {'maxnorm':1},
+            }), #4
+        ('DropOutLayer', {
+            'pdrop'         :.25,
+            }),
+        ('ConvLayer', {
+            'num_maps'      :2000,
+            'filter_sz'     :4,
             'stride'        :1,
             'actvn'         :"relu05",
             'mode'          :"valid",
@@ -121,16 +109,9 @@
         ('DropOutLayer', {
             'pdrop'         :.5,
             }),
-        ('HiddenLayer', {
-            'n_out'         :1600,
-            'reg'           : {'maxnorm':1},
-            }),
-        ('DropOutLayer', {
-            'pdrop'         :.4,
-            }),
         ('SoftmaxLayer', {
             'n_out'         :100,
-            'reg'           : {'maxnorm':1},
+            'reg'           : {'maxnorm':.8},
             }),
 ],
 
@@ -143,5 +124,6 @@
 
     'INIT_LEARNING_RATE': .1,
     'EPOCHS_TO_HALF_RATE':  1,
+    'EPOCHS_TO_RESET_GRADIENT': 20,
 },
 }
