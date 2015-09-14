@@ -139,12 +139,12 @@ nTeBatches = te_corpus_sz // batch_sz
 
 
 def test_wrapper(nylist):
-    sym_err, bit_err, n = 0., 0., 0
-    for symdiff, bitdiff in nylist:
-        sym_err += symdiff
-        bit_err += bitdiff
+    sym_err, pr_true, n = 0., 0., 0
+    for sym_err_, pr_true_ in nylist:
+        sym_err += sym_err_
+        pr_true += pr_true_
         n += 1
-    return 100 * sym_err / n, 100 * bit_err / n
+    return 100 * sym_err / n, 100 * pr_true / n
 
 aux_err_name = 'P(MLE)'
 
