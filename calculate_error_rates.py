@@ -81,22 +81,22 @@ def printddc(ddc, labels):
     counts = np.sum(ddc, axis=1)
     printrow("tot", counts)
     printrow("err", counts-np.diag(ddc))
-    printrow("%rr", (100*(counts-np.diag(ddc)/counts)).astype("int"))
+    printrow("%rr", (100*(counts-np.diag(ddc))/counts).astype("int"))
     print("Avg. Err. Rate: ", 1 - np.trace(ddc)/np.sum(ddc))
 
 def test_wrapper_wrapper(fn, truths):
     s, p, f, c = test_wrapper(fn, truths)
     printddc(f, utils.labels)
     printddc(c, utils.coarse_labels)
-    print("\nAvg. Fine Error Rate: {.2%} "
-          "\nProb. of True class:{.2%}".format(s, p))
+    print("\nAvg. Fine Error Rate: {:.2%} "
+          "\nProb. of True class:{:.2%}".format(s, p))
 
 print("Test Errors")
 test_fn_te = ntwk.get_test_model(share(test_x), share(test_y, "int32"),
                                  preds_feats=True)
 test_wrapper_wrapper(test_fn_te, test_y)
 
-# print("Training Errors")
-# test_fn_tr = ntwk.get_test_model(share(trin_x), share(trin_y, "int32"),
-#                                  preds_feats=True)
-# test_wrapper_wrapper(test_fn_tr, trin_y)
+print("Training Errors")
+test_fn_tr = ntwk.get_test_model(share(trin_x), share(trin_y, "int32"),
+                                 preds_feats=True)
+test_wrapper_wrapper(test_fn_tr, trin_y)
